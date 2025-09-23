@@ -1,0 +1,35 @@
+.scroll-prompt {
+  width: 100vw;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 100px;
+  gap: 0px;
+  margin-bottom: 100px;
+}
+
+.prompt-text {
+  font-size: 1.28rem;
+  color: #191919;
+  font-weight: 500;
+  opacity: 0.88;
+  letter-spacing: 0.5px;
+  line-height: 0px;
+}
+
+.arrow {
+  font-size: 2.6rem;
+  color: #fc960d;
+  animation: bounceDown 1.18s infinite;
+  padding-left: 100px;
+}
+
+@keyframes bounceDown {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(14px);
+  }
+}

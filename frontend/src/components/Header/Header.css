@@ -1,0 +1,115 @@
+.header {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 1rem 0rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font: bold;
+  border-radius: 10px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 95%;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-left img {
+  width: 40px;
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.header-title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: black;
+  margin: 10px;
+  letter-spacing: 0px;
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.github-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid black;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.github-btn:hover {
+  background: rgba(255, 170, 0, 0.1);
+  border-color: black;
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(255, 115, 0, 0.2);
+}
+
+.github-btn:active {
+  transform: scale(1.05);
+}
+
+.github-icon {
+  width: 24px;
+  height: 24px;
+  color: black;
+  transition: color 0.3s ease;
+}
+
+.github-btn:hover .github-icon {
+  color: black;
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem;
+  }
+
+  .header-title {
+    font-size: 1.2rem;
+  }
+
+  .github-btn {
+    width: 42px;
+    height: 42px;
+  }
+
+  .github-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-container {
+    gap: 0.5rem;
+  }
+
+  .header-title {
+    font-size: 1rem;
+  }
+}

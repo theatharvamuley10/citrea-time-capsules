@@ -1,0 +1,9 @@
+.container {
+  width: 100vw;
+  min-height: 100vh;
+  padding: 10px;
+  background-image: url("/citrea-timecapsules-bg.png");
+  background-size: cover; /* makes it fill */
+  background-position: center; /* centers it */
+  background-attachment: fixed;
+}
