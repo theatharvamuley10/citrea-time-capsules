@@ -1,8 +1,18 @@
 .capsule-box-main {
-  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 100vh;
+  width: 100vw;
+  padding: 2rem;
+  box-sizing: border-box;
+  overflow: hidden; /* prevent scroll on the main container */
 }
+
 .capsule-box {
-  width: 400px;
+  max-width: 700px;
+  width: 100%;
+  /* Remove max-height */
   padding: 2rem 2rem 2.5rem 2rem;
   border-radius: 2rem;
   box-shadow: 0 8px 32px rgba(255, 100, 25, 0.25);
@@ -10,15 +20,29 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 60px 0px 0px 100px;
+  justify-content: center;
+  margin: auto;
+  margin-top: 100px;
+  box-sizing: border-box;
+  /* Remove overflow */
+}
+.capsule-box {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .capsule-title {
   text-align: center;
-  font-size: 1.2rem;
-  color: #191919;
+  font-size: 2rem;
+  color: white;
   margin-bottom: 1.5rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .capsule-form {
@@ -40,6 +64,7 @@
   box-shadow: 0 2px 12px rgba(255, 100, 25, 0.09);
   outline: none;
   transition: box-shadow 0.2s;
+  box-sizing: border-box;
 }
 
 .capsule-input:focus {
@@ -47,11 +72,11 @@
 }
 
 input::placeholder {
-  color: rgb(100, 100, 100); /* change color */
-  opacity: 1; /* default is 0.54 in some browsers */
+  color: rgb(100, 100, 100);
+  opacity: 1;
 }
 input:focus::placeholder {
-  color: rgb(36, 36, 36); /* placeholder color when input is focused */
+  color: rgb(36, 36, 36);
 }
 .capsule-btn {
   width: 100%;
@@ -59,7 +84,7 @@ input:focus::placeholder {
   border-radius: 2rem;
   border: none;
   font-size: 1.2rem;
-  background: linear-gradient(100deg, #d4ff00 0%, #ff9500 100%);
+  background: linear-gradient(45deg, #fc960d, #ff6b35);
   color: #191919;
   font-weight: 500;
   box-shadow: 0 4px 18px rgba(212, 255, 0, 0.13);
@@ -68,6 +93,27 @@ input:focus::placeholder {
   margin-top: 0.8rem;
 }
 .capsule-btn:hover {
-  background: linear-gradient(100deg, #c8f400 10%, #ffa600 90%);
-  transform: scale(1.04);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(252, 150, 13, 0.6);
+}
+
+.capsule-input {
+  background: #222326;
+  border: 0.5px solid #fc960d;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.08);
+  color: #fafafa;
+  font-size: 1.08rem;
+  padding: 16px 22px;
+  outline: none;
+  transition: border-color 0.16s, box-shadow 0.16s;
+
+  /* Remove autofill background in Chrome */
+  -webkit-box-shadow: 0 0 0 1000px #222326 inset;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.08);
+}
+
+.capsule-input:focus {
+  border-color: #ffae32;
+  box-shadow: 0 0 4px 2px #ffae3233;
 }

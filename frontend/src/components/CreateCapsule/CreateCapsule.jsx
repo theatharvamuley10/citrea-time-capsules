@@ -14,28 +14,61 @@ const CreateCapsule = ({ onSubmit }) => {
   // Prepare the write hook
   const { writeContractAsync } = useWriteContract();
 
-  // Calculate tomorrow's date in YYYY-MM-DD format
-  const getTomorrowDateString = () => {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    return tomorrow.toISOString().split("T")[0];
+  // Get today's date in YYYY-MM-DD format
+  const getTodayDateString = () => {
+    const today = new Date();
+    return today.toISOString().split("T")[0];
   };
-  const minDate = getTomorrowDateString();
+  const minDate = getTodayDateString();
+
+  // Helper function to check if selected date is valid
+  const isValidUnlockDate = (selectedDate) => {
+    const now = new Date();
+    const selected = new Date(selectedDate);
+    const fiveMinutesFromNow = new Date(now.getTime() + 5 * 60 * 1000); // 5 minutes in milliseconds
+
+    // If it's today, check if it's at least 5 minutes from now
+    if (selected.toDateString() === now.toDateString()) {
+      // For today's date, we'll use current time + 5 minutes as the unlock time
+      return true; // We'll handle the time adjustment in handleSubmit
+    }
+
+    // For future dates, it's always valid
+    return selected > now;
+  };
 
   // Main handler
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!isValidUnlockDate(unlockDate)) {
+      alert("Please select a valid unlock date");
+      return;
+    }
+
     setIsPending(true);
 
     try {
-      const unixTimestamp = Math.floor(new Date(unlockDate).getTime() / 1000); // to seconds
+      const now = new Date();
+      const selectedDate = new Date(unlockDate);
+      let unlockTimestamp;
+
+      // If the selected date is today, set unlock time to current time + 5 minutes
+      if (selectedDate.toDateString() === now.toDateString()) {
+        const fiveMinutesFromNow = new Date(now.getTime() + 5 * 60 * 1000);
+        unlockTimestamp = Math.floor(fiveMinutesFromNow.getTime() / 1000);
+      } else {
+        // For future dates, use the start of that day (midnight UTC)
+        unlockTimestamp = Math.floor(selectedDate.getTime() / 1000);
+      }
+
       const value = parseEther(amount); // ASSUMES BTC is using 18 decimals like ETH!
 
       const tx = await writeContractAsync({
         address: TIME_CAPSULE_ADDRESS,
         abi: TIME_CAPSULE_ABI,
         functionName: "deposit",
-        args: [recipient, unixTimestamp],
+        args: [recipient, unlockTimestamp],
         value,
       });
 
@@ -53,7 +86,7 @@ const CreateCapsule = ({ onSubmit }) => {
   return (
     <div className="capsule-box-main">
       <div className="capsule-box">
-        <h2 className="capsule-title">Create new Capsule..</h2>
+        <h3 className="capsule-title">Create New Capsule</h3>
         <form className="capsule-form" onSubmit={handleSubmit}>
           <input
             type="text"
@@ -70,7 +103,7 @@ const CreateCapsule = ({ onSubmit }) => {
             className="capsule-input"
             placeholder="Enter BTC Amount"
             value={amount}
-            min="0"
+            min="0.0001"
             step="0.00000001"
             onChange={(e) => setAmount(e.target.value)}
             required
@@ -87,6 +120,15 @@ const CreateCapsule = ({ onSubmit }) => {
             {isPending ? "Processing..." : "Create Capsule"}
           </button>
         </form>
+        {unlockDate === getTodayDateString() && (
+          <p
+            className="capsule-info"
+            style={{ fontSize: "0.9em", color: "#666", marginTop: "10px" }}
+          >
+            📅 Selected today's date - unlock time will be set to 5 minutes from
+            now
+          </p>
+        )}
         {txHash && (
           <p className="capsule-tx">
             ✨ Capsule creation tx sent! <br />{" "}

@@ -83,7 +83,7 @@ contract TimeCapsule is ERC721, ReentrancyGuard, Ownable, Pausable {
         if (ownerOf(tokenId) == address(0)) revert UnauthorizedCapsuleAccess();
 
         /// dekhna padega
-        if (msg.sender != ownerOf(tokenId) || msg.sender != _getApproved(tokenId)) {
+        if (msg.sender != ownerOf(tokenId) && msg.sender != _getApproved(tokenId)) {
             revert UnauthorizedUnlocker();
         }
         if (capsule.unlockTimestamp > block.timestamp) revert CapsuleNotReady();
@@ -146,5 +146,16 @@ contract TimeCapsule is ERC721, ReentrancyGuard, Ownable, Pausable {
     //////////////////////////////////////////////////////////////*/
     function getCapsule(uint256 tokenId) public view returns (Capsule memory) {
         return capsules[tokenId];
+    }
+
+    function getAllBeneficiaryCapsules(address beneficiary) public view returns (Capsule[] memory caps) {
+        uint256 count = beneficiaryToCapsules[beneficiary].length;
+        caps = new Capsule[](count); // allocate memory with correct length
+
+        for (uint256 i = 0; i < count; i++) {
+            caps[i] = capsules[beneficiaryToCapsules[beneficiary][i]];
+        }
+
+        return caps;
     }
 }

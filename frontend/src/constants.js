@@ -1,5 +1,5 @@
 export const TIME_CAPSULE_ADDRESS =
-  "0x890ebf6f5dc3b196d1fd15f7864872bc38267a9e";
+  "0xF35BE89D30161770C9082Dc8cA2471baAcCF47B6";
 export const TIME_CAPSULE_ABI = [
   {
     inputs: [
@@ -651,6 +651,47 @@ export const TIME_CAPSULE_ABI = [
         internalType: "uint256",
         name: "",
         type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "beneficiary",
+        type: "address",
+      },
+    ],
+    name: "getAllBeneficiaryCapsules",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "uint256",
+            name: "btcAmount",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "unlockTimestamp",
+            type: "uint256",
+          },
+          {
+            internalType: "address",
+            name: "beneficiary",
+            type: "address",
+          },
+          {
+            internalType: "address",
+            name: "depositor",
+            type: "address",
+          },
+        ],
+        internalType: "struct TimeCapsule.Capsule[]",
+        name: "caps",
+        type: "tuple[]",
       },
     ],
     stateMutability: "view",

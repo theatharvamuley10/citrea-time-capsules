@@ -10,9 +10,11 @@ import { WagmiProvider } from "wagmi";
 import { citreaTestnet } from "wagmi/chains";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import "./index.css";
-import CreateCapsule from "./components/CreateCapsule/CreateCapsule";
-import Info from "./components/Info/Info";
-import ScrollPrompt from "./components/ScrollPrompt/ScrollPrompt";
+
+import { Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+import CreateCapsulePage from "./components/CreateCapsulePage";
+import UnclockCapsuleCard from "./components/UnlockCapsuleCards/UnclockCapsuleCard";
 
 function App() {
   const config = getDefaultConfig({
@@ -34,9 +36,11 @@ function App() {
         >
           <div className="container">
             <Header />
-            <Info />
-            <ScrollPrompt />
-            <CreateCapsule />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/create-capsule" element={<CreateCapsulePage />} />
+              <Route path="/unlock-capsules" element={<UnclockCapsuleCard />} />
+            </Routes>
           </div>
         </RainbowKitProvider>
       </QueryClientProvider>

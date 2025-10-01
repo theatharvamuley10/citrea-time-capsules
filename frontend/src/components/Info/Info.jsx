@@ -1,7 +1,10 @@
 import React from "react";
 import "./Info.css";
+import { useNavigate } from "react-router-dom";
 
 function Info() {
+  const navigate = useNavigate();
+
   return (
     <div className="info">
       <h1 className="info-title">
@@ -37,6 +40,20 @@ function Info() {
             to get capital today for your future Bitcoin.
           </p>
         </section>
+      </div>
+      <div>
+        <button
+          className="navigation-btn create-capsule-btn"
+          onClick={() => navigate("/create-capsule")}
+        >
+          Create Capsules →
+        </button>
+        <button
+          className="navigation-btn unlock-capsule-btn"
+          onClick={() => navigate("/unlock-capsules")}
+        >
+          Unclock Capsules →
+        </button>
       </div>
     </div>
   );
